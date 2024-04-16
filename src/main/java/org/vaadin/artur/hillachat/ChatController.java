@@ -1,5 +1,6 @@
 package org.vaadin.artur.hillachat;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,7 +12,7 @@ import reactor.core.publisher.Sinks.EmitResult;
 public class ChatController extends ChatEndpoint {
 
     @PostMapping(path = "/send")
-    public void send(@RequestBody MessageForm messageForm) {
+    public ResponseEntity<String> send(@RequestBody MessageForm messageForm) {
         System.out.println("sending........." + messageForm.getMessage());
 
         try {
@@ -19,6 +20,8 @@ public class ChatController extends ChatEndpoint {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+
+        return ResponseEntity.ok("Message Sent");
 
     }
 
